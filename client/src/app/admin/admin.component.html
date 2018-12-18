@@ -1,0 +1,35 @@
+
+<form routerLinkActive="active"
+
+[routerLink]="'/admin'"
+[formGroup]="form"
+ (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label>email:</label>
+    <input
+    formControlName="email"
+     type="email"
+     class="form-control"
+     >
+  </div>
+  <div class="form-group">
+  <label>Пароль:</label>
+  <input 
+  formControlName="password"
+  type="password"
+   class="form-control"
+  >
+  </div>
+
+<!--<p *ngIf="admin.invalid&&admin.touched">Данные введены не коректно</p>-->
+<button 
+
+type="submit"
+class="btn btn-success"
+[disabled]="form.invalid||form.disabled">Войти</button>
+</form>
+<a routerLinkActive="active"
+[routerLink]="'/datachange'"></a>
+<router-outlet></router-outlet>
+
+

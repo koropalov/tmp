@@ -1,0 +1,18 @@
+input.ng-invalid.ng-touched{
+    border: 3px solid red;
+}
+#delit{
+    position: relative;
+    left: 292px;
+    top: -128px;
+}
+#chengPriceNY{
+    position: relative;
+    left: 292px;
+    top: -128px;
+}
+#chengPriceWood{
+    left: 585px;
+    top: -254px;
+    position: relative;
+}

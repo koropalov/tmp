@@ -1,0 +1,63 @@
+<form id="add" >
+  <div class="form-group">
+    <label>Добавить дату</label>
+    <input type="date" class="form-control" name="add" [(ngModel)]="nDate">
+  </div>
+  <button type="button" class="btn btn-success" (click)="addDate()">Добавить</button>
+</form>
+
+<form id="delit">
+  <div class="form-group">
+    <label>Удалить дату</label>
+    <input type="date" class="form-control" name="delit" [(ngModel)]="dDate">
+  </div>
+  <button type="button" class="btn btn-success" (click)="deleteDate()">Удалить</button>
+</form>
+
+<form id="chengPrice">
+  <div class="form-group">
+    <label>Стоимость аренды</label>
+    <input type="text" class="form-control" name="price" [(ngModel)]="pU" >
+  </div>
+  <button type="button" class="btn btn-success" (click)="chengePrice()">Изменить </button>
+</form>
+
+<form id="chengPriceNY">
+  <div class="form-group">
+    <label>Стоимость аренды в Новый Год</label>
+    <input type="text" class="form-control" name="priceNY" [(ngModel)]="pNY" >
+  </div>
+  <button type="button" class="btn btn-success" (click)="chengePriceNY()">Изменить </button>
+</form>
+
+<form id="chengPriceWood">
+  <div class="form-group">
+    <label>Стоимость корзины дров</label>
+    <input type="text" class="form-control" name="priceWood" [(ngModel)]="pW">
+  </div>
+  <button type="button" class="btn btn-success" (click)="chengePriceWood()">Изменить </button>
+</form>
+
+<form id="imageLoad">
+  <div class="form-group">
+    <label>Выбор изображения для загрузки</label>
+  <input 
+  type="file"
+   class="dn" 
+   name="imageLoad"
+   #input
+   (change)="onFileUpload($event)" >
+  </div>
+  <button 
+  type="button" class="btn btn-success"
+  
+  (click)="loadImg()"
+  >Загрузить</button>
+ <button type="button" class="btn btn-primary" (click)="onSubmit()">Сохранить</button>
+</form>
+
+
+ 
+        <div style="float:right" *ngFor="let photo of  gallery" >
+            <img class="del" [src]= photo.imageSrc (click)="deleteGallery()" > 
+        </div>

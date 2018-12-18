@@ -1,0 +1,7 @@
+ body{
+    background-color: rgb(200, 235, 106);
+    
+}
+p {
+    text-indent: 20px; /* Отступ первой строки в пикселах */
+   } 

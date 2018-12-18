@@ -1,0 +1,12 @@
+<div class="container">
+    <h1>{{photoGallery[i]}}</h1>
+    </div>
+    <carousel>
+        <slide  *ngFor="let photo of  gallery">
+            <img [src]= photo.imageSrc >
+            <div class="carousel-caption d-none d-md-block"> 
+            </div>
+          </slide>
+    </carousel>
+ 
+    

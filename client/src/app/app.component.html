@@ -1,0 +1,39 @@
+<div id="headhead"class="container">
+      
+   
+        
+            <div class="head" >    
+             <a routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact:true}"
+              routerLink="/" (click)="f()" >{{home[i]}}</a>
+             <a routerLinkActive="active" [routerLink]="'/yard'"(click)="f()">{{yard[i]}}</a>
+             <a routerLinkActive="active" [routerLink]="'/price'"(click)="f()">{{rentPrice[i]}}</a>
+             <a routerLinkActive="active" [routerLink]="'/photo'"(click)="f()">{{photoGallery[i]}}</a>
+             <a routerLinkActive="active" [routerLink]="'/calendar'"(click)="f()">{{calendar[i]}}</a>
+             <a routerLinkActive="active" [routerLink]="'/contacts'"(click)="f()">{{contacts[i]}}</a>
+             <a id="admin" routerLinkActive="active" [routerLink]="'/admin'"></a>
+             
+            </div>
+            <button type="button" class="btn btn-info btn-sm" style="position:relative; left:1200px" (click)="languageRu()">RU</button>
+            <button type="button" class="btn btn-info btn-sm" style="position:relative; left:1200px" (click)="languageUa()">UA</button>
+            <button type="button" class="btn btn-info btn-sm" style="position:relative; left:1200px" (click)="languageEn()">EN</button>
+        <div class="om" [@appAnimation]="ff">{{TravelersHouse[i]}}
+         
+        </div>
+            
+
+ <div class="row" >
+     <div class="col-xs-10 col-xs=offset-1" >
+       <router-outlet >
+      </router-outlet>
+     
+ </div>
+</div>
+</div> 
+<div class="footer">
+  <p>{{adress[i]}}</p>
+  <p>+38 067 6725905-{{olya[i]}};</p>
+  <p>+38 097 5978605-{{denys[i]}};</p>
+  <p>email: 249478@gmail.com</p>
+
+</div>
