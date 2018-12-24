@@ -1,13 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {CalendarService} from '../calendar/calendar.service'
+import { NAMED_ENTITIES } from '@angular/compiler';
+import { type } from 'os';
 
-interface Gallery{
-  // imageSrc:string,
-  // _id:string
-  imageSrc:{
-     type:string,
-     _id:string
- }
+
+export class Foto{
+  _id:string;
+   imageSrc:string;
+}
+export class Price{
+  _id:string;
+  cost:string;
  
 }
 
@@ -18,20 +21,34 @@ interface Gallery{
 })
 export class DatachangeComponent implements OnInit {
   @ViewChild('input') inputRef:ElementRef
+  //@ViewChild('id') id:ElementRef
   nDate: string;
   dDate:string;
-  pU:string;
+  priceUgely:string;
   pNY:string;
   pW:string;
   image:File;
   imagePreview;
-  gallery:Gallery[]=[];
- 
+  gallery:Foto[];
+  editP=false
+  editPNY=false
+  editPW=false
   constructor(private calendarService:CalendarService) { }
 ngOnInit() {
-  this.calendarService.getGallery().subscribe((gallery:Gallery[])=>{this.gallery=gallery})
+  this.calendarService.getGallery().subscribe((gallery:Foto[])=>{this.gallery=gallery})
   }
- 
+  ngDoCheck(){
+    
+  }
+  editPrice(){
+    this.editP=true
+  }
+  editPriceNY(){
+    this.editPNY=true
+  }
+  editPriceWood(){
+  this.editPW=true
+  }
   addDate(){
     this.calendarService.addDate(this.nDate)
     .subscribe((json)=>{
@@ -48,19 +65,19 @@ ngOnInit() {
 
   }
   chengePrice(){
-    this.calendarService.createPrice(this.pU)
-    .subscribe((json)=>{
+    this.calendarService.createPrice(this.priceUgely)
+    .subscribe((json)=>{ 
       console.log(json)
     })
   }
   chengePriceNY(){
-    this.calendarService.createPrice(this.pNY)
+    this.calendarService.createPriceNY(this.pNY)
     .subscribe((json)=>{
       console.log(json)
     })
   }
   chengePriceWood(){
-    this.calendarService.createPrice(this.pW)
+    this.calendarService.createPriceW(this.pW)
     .subscribe((json)=>{
       console.log(json)
     })
@@ -79,15 +96,21 @@ ngOnInit() {
   }
   reader.readAsDataURL(file)
   }
+  
   onSubmit(){
-    
-    this.calendarService.createGallery(this.image).subscribe(gallery=>{
-      
-    })
+    this.calendarService.addFoto(this.image).subscribe((res)=>{this.gallery.push(res), console.log(res)})
   }
-  deleteGallery(){
-    //this.calendarService.deleteGallery(this.gallery._id).subscribe( )
 
-   
+  deleteFoto(id:string){
+   let p=confirm('Вы действительно хотите удалить фото ?')
+   if(p)
+   {this.calendarService.deleteFoto(id).subscribe(
+     (res)=>{this.gallery=this.gallery.filter(foto=>foto._id!==id)
+     console.log(id)
+     },
+     (err)=>{
+    }
+   )
   }
+}
 }

@@ -28,8 +28,14 @@ return this.http.post<{token:string}>('/api/auth/login',user)
     )
 )
 }
-setToken(token){
+setToken(token:string){
 this.token=token
+}
+getToken():string{
+return this.token
+}
+isAuthenticated():boolean{
+return !!this.token
 }
 logout(){
     this.setToken(null)
@@ -37,25 +43,4 @@ logout(){
 }
 
 
-// addDate(nDate:string){
-//     const data = {
-//          day: +nDate.substr(8,2),
-//          month: +nDate.substr(5,2)-1,
-//          year: +nDate.substr(0,4),
-//          id: +(nDate.substr(8,2)+nDate.substr(5,2)+nDate.substr(0,4))
-//     }
-//     return this.http.post('http://localhost:3000/bookedDates',data)
-//     .map((response:Response)=> response.json());
-// }
-
-// deleteDate(dDate:any){
-//     const data = {
-//         day: +dDate.substr(8,2),
-//         month: +dDate.substr(5,2)-1,
-//         year: +dDate.substr(0,4),
-//         id:+(dDate.substr(8,2)+dDate.substr(5,2)+dDate.substr(0,4))
-//    }
-//    return this.http.delete(`http://localhost:3000/bookedDates/${data.id}`)
-//     .map((response:Response)=> response.json());
-// }
 }

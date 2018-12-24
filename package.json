@@ -4,8 +4,8 @@
   "description": "fullstec app with angular and express",
   "main": "index.js",
   "engines": {
-    "node":"8.11.2",
-    "npm":"5.6.0"
+    "node": "8.11.2",
+    "npm": "5.6.0"
   },
   "scripts": {
     "start": "node index",
@@ -13,7 +13,7 @@
     "client-install": "npm install --prefix client",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm run client-install && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run client-install && npm run build --prefix client"
   },
   "keywords": [
     "express",
@@ -25,6 +25,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "event-stream": "^3.3.5",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.23.0",
@@ -37,6 +38,6 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.7",
-    "ws": "3.3.2"
+    "ws": "6.1.2"
   }
 }

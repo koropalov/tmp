@@ -5,10 +5,14 @@ const passport=require('passport')
 const path=require('path')
 const authRoutes=require('./routes/auth')
 const costRoutes=require('./routes/cost')
+const costnyRoutes=require('./routes/costny')
+const costwRoutes=require('./routes/costw')
 const galleryRoutes=require('./routes/gallery')
 const dateRoutes=require('./routes/date')
 const keys=require('./config/keys')
 const app=express()
+
+const indexRouter=require('./routes/index')
 
 mongoose.connect(keys.mongoURI)
 .then(()=>console.log('MongooDB connected'))
@@ -26,8 +30,12 @@ app.use(require('cors')())
 
 app.use('/api/auth',authRoutes)
 app.use('/api/cost',costRoutes)
+app.use('/api/costny',costnyRoutes)
+app.use('/api/costw',costwRoutes)
 app.use('/api/gallery',galleryRoutes)
 app.use('/api/date',dateRoutes)
+
+app.use('/',indexRouter)
 
 if(process.env.NODE_ENV==='production'){
     app.use(express.static('client/dist/om'))

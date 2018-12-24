@@ -8,6 +8,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AdminComponent } from './admin/admin.component';
 import { DatachangeComponent } from './datachange/datachange.component';
+import { AuthGuard } from './shared/class/auth.guard';
 
 
 const appRoutes: Routes = [
@@ -18,7 +19,7 @@ const appRoutes: Routes = [
   {path:'calendar',component:CalendarComponent},
   {path:'contacts',component:ContactsComponent},
   {path:'admin',component:AdminComponent},
-    {path:'datachange',component:DatachangeComponent}
+    {path:'datachange',component:DatachangeComponent,canActivate:[AuthGuard]}
   
 ];
 

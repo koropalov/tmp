@@ -3,7 +3,11 @@ import { AppService} from '../app.service';
 import {CalendarService} from '../calendar/calendar.service';
 
 interface Price{
-  cost:string;
+  cost:{
+    type:string,
+    _id:string
+  }
+
 }
 
 
@@ -14,7 +18,9 @@ interface Price{
   styleUrls: ['./price.component.css']
 })
 export class PriceComponent implements OnInit {
-  price:Price[]=[]
+  price:Price
+  priceNY:Price
+  priceW:Price
   i:number;
   
   h1=["Стоимость аренды","Вартість оренди","Rent price"]
@@ -31,8 +37,9 @@ export class PriceComponent implements OnInit {
 
   constructor(public appService: AppService, public calendarService:CalendarService) { }
   ngOnInit() {
-   this.calendarService.getPrice().subscribe((price:Price[])=>{this.price=price,console.log(price)})
-   
+   this.calendarService.getPrice().subscribe((price:Price)=>{this.price=price,console.log(price)})
+   this.calendarService.getPriceNY().subscribe((priceNY:Price)=>{this.priceNY=priceNY})
+   this.calendarService.getPriceW().subscribe((priceW:Price)=>{this.priceW=priceW})
   }
 
   ngDoCheck(){

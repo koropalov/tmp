@@ -23,10 +23,8 @@ module.exports.create= async function(req,res){
 }
 module.exports.remove= async function(req,res){
     try{
-  await Gallery.remove({id:req.params._id})
-  res.status(200).json({
-      message:'Фотография удаленна'
-  })
+  await Gallery.remove({_id:req.params.id})
+  res.status(200).send()
     }catch(e){
     errorHandler(res,e)
     }

@@ -54,31 +54,7 @@ this.aSub=this.adminServis.login(this.form.value).subscribe(
   this.form.enable()}
 )
  }
-  // submitForm(){
-  //   this.formDate = this.form.value;
-  //  if(this.form.value.name===this.adminName&&this.form.value.pass===this.adminPass){
-  //   this.isSubmited = true;
-  //  }
-    
-    
-  // }
- 
-  // addDate(){
-  //    this.calendarService.addDate(this.nDate)
-  //    .subscribe((json)=>{
-  //     console.log(json);
-  //    });
-     
-  // }
-
-  // deleteDate(){
-  // this.calendarService.deleteDate(this.dDate)
-  // .subscribe((json)=>{
-  //   console.log(json);
-  // });
-
-  //}
-
+  
   
 
  

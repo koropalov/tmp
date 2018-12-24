@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { Foto} from '../datachange/datachange.component'
 
 interface BookedDates{
 
@@ -13,37 +14,42 @@ interface BookedDates{
    _id:string;
  }
  interface Price{
-   cost:string;
- }
-interface Gallery{
-   // imageSrc:string,
-   // _id:string
-   imageSrc:{
+   cost:{
       type:string,
       _id:string
-  }
+   }
   
-}
+ }
+
 
 @Injectable()
 export class CalendarService{
-  gallery:Gallery[]=[]
-  price:Price[]=[]
+  gallery:Foto[]
+  price:Price
+  priceNY:Price
+  priceW:Price
   bookedDates:BookedDates[]=[]
  constructor(private http:Http,
-             private http1:HttpClient){
-                
-             }
+             private http1:HttpClient){ }
             
  getDate():Observable<BookedDates[]>{
   return this.http1.get<BookedDates[]>('api/date')
   
  }
- getPrice():Observable<Price[]>{
-    return this.http1.get<Price[]>('api/cost')
+ getPrice():Observable<Price>{
+    return this.http1.get<Price>('api/cost')
  }
- getGallery():Observable<Gallery[]>{
-   return this.http1.get<Gallery[]>('api/gallery')
+
+ getPriceNY():Observable<Price>{
+   return this.http1.get<Price>('api/costny')
+}
+
+getPriceW():Observable<Price>{
+   return this.http1.get<Price>('api/costw')
+}
+
+ getGallery():Observable<Foto[]>{
+   return this.http1.get<Foto[]>('api/gallery')
 }
 
 addDate(nDate:string):Observable<BookedDates[]>{
@@ -58,15 +64,24 @@ addDate(nDate:string):Observable<BookedDates[]>{
           }
           return this.http1.post<BookedDates[]>('api/date',data)
 }
-createPrice(nPrice:string):Observable<Price[]>{
- 
- return this.http1.post<Price[]>('api/cost',nPrice)
+createPrice(nPrice:string):Observable<Price>{
+ return this.http1.post<Price>('api/cost',nPrice)
 }
 
-createGallery(image:File):Observable<Gallery>{
+createPriceNY(nPriceNY:string):Observable<Price>{
+ 
+   return this.http1.post<Price>('api/costny',nPriceNY)
+  }
+
+  createPriceW(nPriceW:string):Observable<Price>{
+ 
+   return this.http1.post<Price>('api/costw',nPriceW)
+  }
+
+addFoto(image:File):Observable<Foto>{
    const fd=new FormData()
    fd.append('image',image,image.name)
- return this.http1.post<Gallery>('api/gallery',fd)
+ return this.http1.post<Foto>('api/gallery',fd)
 }
             
 deleteDate(dDate:string){
@@ -75,8 +90,8 @@ deleteDate(dDate:string){
          return this.http1.delete(`api/date/${_id}`)
 }
 
-deleteGallery(_id:string):Observable<Gallery>{
-return this.http1.delete<Gallery>(`api/gallery/${_id}`)
+deleteFoto(_id:string):Observable<null>{
+return this.http1.delete<null>(`api/gallery/${_id}`)
 }
  
 }

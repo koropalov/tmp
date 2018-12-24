@@ -14,20 +14,26 @@
   <button type="button" class="btn btn-success" (click)="deleteDate()">Удалить</button>
 </form>
 
-<form id="chengPrice">
+ <!--<form id="chengPrice">
   <div class="form-group">
     <label>Стоимость аренды</label>
-    <input type="text" class="form-control" name="price" [(ngModel)]="pU" >
+    <input type="text" class="form-control"   [(ngModel)="priceUgely">
   </div>
-  <button type="button" class="btn btn-success" (click)="chengePrice()">Изменить </button>
-</form>
+  <button type="button" class="btn btn-success" (click)="chengePrice()"
+   [disabled]="!editP">Изменить </button>
+  <button type="button" class="btn btn-danger" (click)="editPrice()"
+  [disabled]="editP">Редактировать</button> 
+</form> -->
 
 <form id="chengPriceNY">
   <div class="form-group">
     <label>Стоимость аренды в Новый Год</label>
     <input type="text" class="form-control" name="priceNY" [(ngModel)]="pNY" >
   </div>
-  <button type="button" class="btn btn-success" (click)="chengePriceNY()">Изменить </button>
+  <button type="button" class="btn btn-success" (click)="chengePriceNY()"
+  [disabled]="!editPNY">Изменить </button>
+  <button type="button" class="btn btn-danger" (click)="editPriceNY()"
+  [disabled]="editPNY">Редактировать</button>
 </form>
 
 <form id="chengPriceWood">
@@ -35,8 +41,13 @@
     <label>Стоимость корзины дров</label>
     <input type="text" class="form-control" name="priceWood" [(ngModel)]="pW">
   </div>
-  <button type="button" class="btn btn-success" (click)="chengePriceWood()">Изменить </button>
+  <button type="button" class="btn btn-success" (click)="chengePriceWood()"
+  [disabled]="!editPW">Изменить </button>
+  <button type="button" class="btn btn-danger" (click)="editPriceWood()"
+  [disabled]="editPW">Редактировать</button>
 </form>
+
+
 
 <form id="imageLoad">
   <div class="form-group">
@@ -56,8 +67,8 @@
  <button type="button" class="btn btn-primary" (click)="onSubmit()">Сохранить</button>
 </form>
 
-
+<p *ngIf="gallery.length>0" >Для удаления фото кликните по нему мышкой</p>
  
-        <div style="float:right" *ngFor="let photo of  gallery" >
-            <img class="del" [src]= photo.imageSrc (click)="deleteGallery()" > 
-        </div>
+        <div style="float:right" *ngFor="let photo of  gallery" > 
+            <img class="del"   [src]= photo.imageSrc (click)="deleteFoto(photo._id)" > 
+       </div>

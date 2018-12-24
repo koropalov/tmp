@@ -12899,6 +12899,12 @@ var AdminService = /** @class */ (function () {
     AdminService.prototype.setToken = function (token) {
         this.token = token;
     };
+    AdminService.prototype.getToken = function () {
+        return this.token;
+    };
+    AdminService.prototype.isAuthenticated = function () {
+        return !!this.token;
+    };
     AdminService.prototype.logout = function () {
         this.setToken(null);
         localStorage.clear();
@@ -12934,12 +12940,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./contacts/contacts.component */ "./src/app/contacts/contacts.component.ts");
 /* harmony import */ var _admin_admin_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./admin/admin.component */ "./src/app/admin/admin.component.ts");
 /* harmony import */ var _datachange_datachange_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./datachange/datachange.component */ "./src/app/datachange/datachange.component.ts");
+/* harmony import */ var _shared_class_auth_guard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./shared/class/auth.guard */ "./src/app/shared/class/auth.guard.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -12958,7 +12966,7 @@ var appRoutes = [
     { path: 'calendar', component: _calendar_calendar_component__WEBPACK_IMPORTED_MODULE_6__["CalendarComponent"] },
     { path: 'contacts', component: _contacts_contacts_component__WEBPACK_IMPORTED_MODULE_7__["ContactsComponent"] },
     { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_8__["AdminComponent"] },
-    { path: 'datachange', component: _datachange_datachange_component__WEBPACK_IMPORTED_MODULE_9__["DatachangeComponent"] }
+    { path: 'datachange', component: _datachange_datachange_component__WEBPACK_IMPORTED_MODULE_9__["DatachangeComponent"], canActivate: [_shared_class_auth_guard__WEBPACK_IMPORTED_MODULE_10__["AuthGuard"]] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -13476,7 +13484,6 @@ var CalendarService = /** @class */ (function () {
         this.http = http;
         this.http1 = http1;
         this.gallery = [];
-        this.price = [];
         this.bookedDates = [];
     }
     CalendarService.prototype.getDate = function () {
@@ -13484,6 +13491,12 @@ var CalendarService = /** @class */ (function () {
     };
     CalendarService.prototype.getPrice = function () {
         return this.http1.get('api/cost');
+    };
+    CalendarService.prototype.getPriceNY = function () {
+        return this.http1.get('api/costny');
+    };
+    CalendarService.prototype.getPriceW = function () {
+        return this.http1.get('api/costw');
     };
     CalendarService.prototype.getGallery = function () {
         return this.http1.get('api/gallery');
@@ -13503,6 +13516,12 @@ var CalendarService = /** @class */ (function () {
     CalendarService.prototype.createPrice = function (nPrice) {
         return this.http1.post('api/cost', nPrice);
     };
+    CalendarService.prototype.createPriceNY = function (nPriceNY) {
+        return this.http1.post('api/costny', nPriceNY);
+    };
+    CalendarService.prototype.createPriceW = function (nPriceW) {
+        return this.http1.post('api/costw', nPriceW);
+    };
     CalendarService.prototype.createGallery = function (image) {
         var fd = new FormData();
         fd.append('image', image, image.name);
@@ -13512,8 +13531,8 @@ var CalendarService = /** @class */ (function () {
         var _id = (dDate.substr(8, 2) + dDate.substr(5, 2) + dDate.substr(0, 4));
         return this.http1.delete("api/date/" + _id);
     };
-    CalendarService.prototype.deleteGallery = function (_id) {
-        return this.http1.delete("api/gallery/" + _id);
+    CalendarService.prototype.deleteGallery = function (id) {
+        return this.http1.delete("api/gallery/" + id);
     };
     CalendarService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
@@ -13616,7 +13635,7 @@ var ContactsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "input.ng-invalid.ng-touched{\r\n    border: 3px solid red;\r\n}\r\n#add{\r\n    width: 280px;\r\n}\r\n#delit{\r\n    position: relative;\r\n    width: 280px;\r\n    left: 287px;\r\n    top: -128px;\r\n}\r\n#chengPrice{\r\n    width: 270px;\r\n}\r\n#chengPriceNY{\r\n    position: relative;\r\n    width: 270px;\r\n    left: 287px;\r\n    top: -128px;\r\n}\r\n#chengPriceWood{\r\n    width: 270px;\r\n    left: 581px;\r\n    top: -254px;\r\n    position: relative;\r\n}\r\n#imageLoad{\r\n    position: relative;\r\n    left: 584px;\r\n    top: -638px;\r\n}\r\n.dn{\r\n    display: none;\r\n}\r\n.del{\r\n    width: 250px;\r\n    border: 1px solid black;\r\n    \r\n   \r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGF0YWNoYW5nZS9kYXRhY2hhbmdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxzQkFBc0I7Q0FDekI7QUFDRDtJQUNJLGFBQWE7Q0FDaEI7QUFDRDtJQUNJLG1CQUFtQjtJQUNuQixhQUFhO0lBQ2IsWUFBWTtJQUNaLFlBQVk7Q0FDZjtBQUNEO0lBQ0ksYUFBYTtDQUNoQjtBQUNEO0lBQ0ksbUJBQW1CO0lBQ25CLGFBQWE7SUFDYixZQUFZO0lBQ1osWUFBWTtDQUNmO0FBQ0Q7SUFDSSxhQUFhO0lBQ2IsWUFBWTtJQUNaLFlBQVk7SUFDWixtQkFBbUI7Q0FDdEI7QUFDRDtJQUNJLG1CQUFtQjtJQUNuQixZQUFZO0lBQ1osWUFBWTtDQUNmO0FBQ0Q7SUFDSSxjQUFjO0NBQ2pCO0FBQ0Q7SUFDSSxhQUFhO0lBQ2Isd0JBQXdCOzs7Q0FHM0IiLCJmaWxlIjoic3JjL2FwcC9kYXRhY2hhbmdlL2RhdGFjaGFuZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImlucHV0Lm5nLWludmFsaWQubmctdG91Y2hlZHtcclxuICAgIGJvcmRlcjogM3B4IHNvbGlkIHJlZDtcclxufVxyXG4jYWRke1xyXG4gICAgd2lkdGg6IDI4MHB4O1xyXG59XHJcbiNkZWxpdHtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgIHdpZHRoOiAyODBweDtcclxuICAgIGxlZnQ6IDI4N3B4O1xyXG4gICAgdG9wOiAtMTI4cHg7XHJcbn1cclxuI2NoZW5nUHJpY2V7XHJcbiAgICB3aWR0aDogMjcwcHg7XHJcbn1cclxuI2NoZW5nUHJpY2VOWXtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgIHdpZHRoOiAyNzBweDtcclxuICAgIGxlZnQ6IDI4N3B4O1xyXG4gICAgdG9wOiAtMTI4cHg7XHJcbn1cclxuI2NoZW5nUHJpY2VXb29ke1xyXG4gICAgd2lkdGg6IDI3MHB4O1xyXG4gICAgbGVmdDogNTgxcHg7XHJcbiAgICB0b3A6IC0yNTRweDtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxufVxyXG4jaW1hZ2VMb2Fke1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgbGVmdDogNTg0cHg7XHJcbiAgICB0b3A6IC02MzhweDtcclxufVxyXG4uZG57XHJcbiAgICBkaXNwbGF5OiBub25lO1xyXG59XHJcbi5kZWx7XHJcbiAgICB3aWR0aDogMjUwcHg7XHJcbiAgICBib3JkZXI6IDFweCBzb2xpZCBibGFjaztcclxuICAgIFxyXG4gICBcclxufVxyXG4iXX0= */"
+module.exports = "input.ng-invalid.ng-touched{\r\n    border: 3px solid red;\r\n}\r\n#add{\r\n    width: 280px;\r\n}\r\n#delit{\r\n    position: relative;\r\n    width: 280px;\r\n    left: 287px;\r\n    top: -128px;\r\n}\r\n#chengPrice{\r\n    width: 270px;\r\n}\r\n#chengPriceNY{\r\n    position: relative;\r\n    width: 270px;\r\n    left: 287px;\r\n    top: -128px;\r\n}\r\n#chengPriceWood{\r\n    width: 270px;\r\n    left: 581px;\r\n    top: -254px;\r\n    position: relative;\r\n}\r\n#imageLoad{\r\n    position: relative;\r\n    left: 584px;\r\n    top: -638px;\r\n}\r\n.dn{\r\n    display: none;\r\n}\r\n.del{\r\n    width: 250px;\r\n    border: 3px solid transparent;\r\n}\r\n.del:hover{\r\n    width: 250px;\r\n    border: 3px solid red;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGF0YWNoYW5nZS9kYXRhY2hhbmdlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxzQkFBc0I7Q0FDekI7QUFDRDtJQUNJLGFBQWE7Q0FDaEI7QUFDRDtJQUNJLG1CQUFtQjtJQUNuQixhQUFhO0lBQ2IsWUFBWTtJQUNaLFlBQVk7Q0FDZjtBQUNEO0lBQ0ksYUFBYTtDQUNoQjtBQUNEO0lBQ0ksbUJBQW1CO0lBQ25CLGFBQWE7SUFDYixZQUFZO0lBQ1osWUFBWTtDQUNmO0FBQ0Q7SUFDSSxhQUFhO0lBQ2IsWUFBWTtJQUNaLFlBQVk7SUFDWixtQkFBbUI7Q0FDdEI7QUFDRDtJQUNJLG1CQUFtQjtJQUNuQixZQUFZO0lBQ1osWUFBWTtDQUNmO0FBQ0Q7SUFDSSxjQUFjO0NBQ2pCO0FBQ0Q7SUFDSSxhQUFhO0lBQ2IsOEJBQThCO0NBQ2pDO0FBQ0Q7SUFDSSxhQUFhO0lBQ2Isc0JBQXNCO0NBQ3pCIiwiZmlsZSI6InNyYy9hcHAvZGF0YWNoYW5nZS9kYXRhY2hhbmdlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpbnB1dC5uZy1pbnZhbGlkLm5nLXRvdWNoZWR7XHJcbiAgICBib3JkZXI6IDNweCBzb2xpZCByZWQ7XHJcbn1cclxuI2FkZHtcclxuICAgIHdpZHRoOiAyODBweDtcclxufVxyXG4jZGVsaXR7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICB3aWR0aDogMjgwcHg7XHJcbiAgICBsZWZ0OiAyODdweDtcclxuICAgIHRvcDogLTEyOHB4O1xyXG59XHJcbiNjaGVuZ1ByaWNle1xyXG4gICAgd2lkdGg6IDI3MHB4O1xyXG59XHJcbiNjaGVuZ1ByaWNlTll7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICB3aWR0aDogMjcwcHg7XHJcbiAgICBsZWZ0OiAyODdweDtcclxuICAgIHRvcDogLTEyOHB4O1xyXG59XHJcbiNjaGVuZ1ByaWNlV29vZHtcclxuICAgIHdpZHRoOiAyNzBweDtcclxuICAgIGxlZnQ6IDU4MXB4O1xyXG4gICAgdG9wOiAtMjU0cHg7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbn1cclxuI2ltYWdlTG9hZHtcclxuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgIGxlZnQ6IDU4NHB4O1xyXG4gICAgdG9wOiAtNjM4cHg7XHJcbn1cclxuLmRue1xyXG4gICAgZGlzcGxheTogbm9uZTtcclxufVxyXG4uZGVse1xyXG4gICAgd2lkdGg6IDI1MHB4O1xyXG4gICAgYm9yZGVyOiAzcHggc29saWQgdHJhbnNwYXJlbnQ7XHJcbn1cclxuLmRlbDpob3ZlcntcclxuICAgIHdpZHRoOiAyNTBweDtcclxuICAgIGJvcmRlcjogM3B4IHNvbGlkIHJlZDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -13627,7 +13646,7 @@ module.exports = "input.ng-invalid.ng-touched{\r\n    border: 3px solid red;\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form id=\"add\" >\n  <div class=\"form-group\">\n    <label>Добавить дату</label>\n    <input type=\"date\" class=\"form-control\" name=\"add\" [(ngModel)]=\"nDate\">\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"addDate()\">Добавить</button>\n</form>\n\n<form id=\"delit\">\n  <div class=\"form-group\">\n    <label>Удалить дату</label>\n    <input type=\"date\" class=\"form-control\" name=\"delit\" [(ngModel)]=\"dDate\">\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"deleteDate()\">Удалить</button>\n</form>\n\n<form id=\"chengPrice\">\n  <div class=\"form-group\">\n    <label>Стоимость аренды</label>\n    <input type=\"text\" class=\"form-control\" name=\"price\" [(ngModel)]=\"pU\" >\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"chengePrice()\">Изменить </button>\n</form>\n\n<form id=\"chengPriceNY\">\n  <div class=\"form-group\">\n    <label>Стоимость аренды в Новый Год</label>\n    <input type=\"text\" class=\"form-control\" name=\"priceNY\" [(ngModel)]=\"pNY\" >\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"chengePriceNY()\">Изменить </button>\n</form>\n\n<form id=\"chengPriceWood\">\n  <div class=\"form-group\">\n    <label>Стоимость корзины дров</label>\n    <input type=\"text\" class=\"form-control\" name=\"priceWood\" [(ngModel)]=\"pW\">\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"chengePriceWood()\">Изменить </button>\n</form>\n\n<form id=\"imageLoad\">\n  <div class=\"form-group\">\n    <label>Выбор изображения для загрузки</label>\n  <input \n  type=\"file\"\n   class=\"dn\" \n   name=\"imageLoad\"\n   #input\n   (change)=\"onFileUpload($event)\" >\n  </div>\n  <button \n  type=\"button\" class=\"btn btn-success\"\n  \n  (click)=\"loadImg()\"\n  >Загрузить</button>\n <button type=\"button\" class=\"btn btn-primary\" (click)=\"onSubmit()\">Сохранить</button>\n</form>\n\n\n \n        <div style=\"float:right\" *ngFor=\"let photo of  gallery\" >\n            <img class=\"del\" [src]= photo.imageSrc (click)=\"deleteGallery()\" > \n        </div>"
+module.exports = "<form id=\"add\" >\n  <div class=\"form-group\">\n    <label>Добавить дату</label>\n    <input type=\"date\" class=\"form-control\" name=\"add\" [(ngModel)]=\"nDate\">\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"addDate()\">Добавить</button>\n</form>\n\n<form id=\"delit\">\n  <div class=\"form-group\">\n    <label>Удалить дату</label>\n    <input type=\"date\" class=\"form-control\" name=\"delit\" [(ngModel)]=\"dDate\">\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"deleteDate()\">Удалить</button>\n</form>\n\n<form id=\"chengPrice\">\n  <div class=\"form-group\">\n    <label>Стоимость аренды</label>\n    <input type=\"text\" class=\"form-control\" name=\"price\" #pu >\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"chengePrice(pu)\"\n  [disabled]=\"!editP\">Изменить </button>\n  <button type=\"button\" class=\"btn btn-danger\" (click)=\"editPrice()\"\n  [disabled]=\"editP\">Редактировать</button>\n</form>\n\n<form id=\"chengPriceNY\">\n  <div class=\"form-group\">\n    <label>Стоимость аренды в Новый Год</label>\n    <input type=\"text\" class=\"form-control\" name=\"priceNY\" [(ngModel)]=\"pNY\" >\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"chengePriceNY()\"\n  [disabled]=\"!editPNY\">Изменить </button>\n  <button type=\"button\" class=\"btn btn-danger\" (click)=\"editPriceNY()\"\n  [disabled]=\"editPNY\">Редактировать</button>\n</form>\n\n<form id=\"chengPriceWood\">\n  <div class=\"form-group\">\n    <label>Стоимость корзины дров</label>\n    <input type=\"text\" class=\"form-control\" name=\"priceWood\" [(ngModel)]=\"pW\">\n  </div>\n  <button type=\"button\" class=\"btn btn-success\" (click)=\"chengePriceWood()\"\n  [disabled]=\"!editPW\">Изменить </button>\n  <button type=\"button\" class=\"btn btn-danger\" (click)=\"editPriceWood()\"\n  [disabled]=\"editPW\">Редактировать</button>\n</form>\n\n<form id=\"imageLoad\">\n  <div class=\"form-group\">\n    <label>Выбор изображения для загрузки</label>\n  <input \n  type=\"file\"\n   class=\"dn\" \n   name=\"imageLoad\"\n   #input\n   (change)=\"onFileUpload($event)\" >\n  </div>\n  <button \n  type=\"button\" class=\"btn btn-success\"\n  \n  (click)=\"loadImg()\"\n  >Загрузить</button>\n <button type=\"button\" class=\"btn btn-primary\" (click)=\"onSubmit()\">Сохранить</button>\n</form>\n\n\n \n        <div style=\"float:right\" *ngFor=\"let photo of  gallery\" > \n            <img class=\"del\"  #id [src]= photo.imageSrc (click)=\"deleteGallery(id)\" > \n       </div>"
 
 /***/ }),
 
@@ -13658,10 +13677,24 @@ var DatachangeComponent = /** @class */ (function () {
     function DatachangeComponent(calendarService) {
         this.calendarService = calendarService;
         this.gallery = [];
+        this.editP = false;
+        this.editPNY = false;
+        this.editPW = false;
     }
     DatachangeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.calendarService.getGallery().subscribe(function (gallery) { _this.gallery = gallery; });
+    };
+    DatachangeComponent.prototype.ngDoCheck = function () {
+    };
+    DatachangeComponent.prototype.editPrice = function () {
+        this.editP = true;
+    };
+    DatachangeComponent.prototype.editPriceNY = function () {
+        this.editPNY = true;
+    };
+    DatachangeComponent.prototype.editPriceWood = function () {
+        this.editPW = true;
     };
     DatachangeComponent.prototype.addDate = function () {
         this.calendarService.addDate(this.nDate)
@@ -13675,20 +13708,20 @@ var DatachangeComponent = /** @class */ (function () {
             console.log(json);
         });
     };
-    DatachangeComponent.prototype.chengePrice = function () {
-        this.calendarService.createPrice(this.pU)
+    DatachangeComponent.prototype.chengePrice = function (pu) {
+        this.calendarService.createPrice(pu.value)
             .subscribe(function (json) {
-            console.log(json);
+            console.log(pu.value);
         });
     };
     DatachangeComponent.prototype.chengePriceNY = function () {
-        this.calendarService.createPrice(this.pNY)
+        this.calendarService.createPriceNY(this.pNY)
             .subscribe(function (json) {
             console.log(json);
         });
     };
     DatachangeComponent.prototype.chengePriceWood = function () {
-        this.calendarService.createPrice(this.pW)
+        this.calendarService.createPriceW(this.pW)
             .subscribe(function (json) {
             console.log(json);
         });
@@ -13710,12 +13743,23 @@ var DatachangeComponent = /** @class */ (function () {
         this.calendarService.createGallery(this.image).subscribe(function (gallery) {
         });
     };
-    DatachangeComponent.prototype.deleteGallery = function () {
-        //this.calendarService.deleteGallery(this.gallery._id).subscribe( )
+    DatachangeComponent.prototype.deleteGallery = function (id) {
+        var idd;
+        var n = id.src.indexOf('uploads/') + 8;
+        var str = id.src.substring(n);
+        str = 'uploads' + '\\' + str;
+        //  for (var i=0; i<this.gallery.length; i++){
+        //   console.log(this.gallery[i])
+        //   }
+        console.log(typeof this.gallery);
+        //this.calendarService.deleteGallery().subscribe(gallery=>{ 
+        //} )
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('input'),
-        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]
+        //@ViewChild('id') id:ElementRef
+        )
     ], DatachangeComponent.prototype, "inputRef", void 0);
     DatachangeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -13750,7 +13794,7 @@ module.exports = ".container{\r\n    font-family: 'Franklin Gothic Medium', 'Ari
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n<h1>{{home[i]}}</h1>\r\n<figure>\r\n        <img src=\"assets/imeges/IMG_1538.JPG\" class=\"headImg\">\r\n      \r\n       </figure>\r\n       <div  class=\"lead\">\r\n            <p>{{p1[i]}}</p>\r\n              \r\n           <p ><img src=\"assets/imeges/riv.JPG\" class=\"img\">{{p2[i]}}</p>\r\n                 <p>{{p3[i]}}\r\n                   </p>\r\n             \r\n            </div>\r\n            \r\n</div>"
+module.exports = "<div class=\"container\">\r\n<h1>{{home[i]}}</h1>\r\n<figure>\r\n        <img src=\"assets/IMG_1538.jpg\" class=\"headImg\">\r\n      \r\n       </figure>\r\n       <div  class=\"lead\">\r\n            <p>{{p1[i]}}</p>\r\n              \r\n           <p ><img src=\"assets/riv.JPG\" class=\"img\">{{p2[i]}}</p>\r\n                 <p>{{p3[i]}}\r\n                   </p>\r\n             \r\n            </div>\r\n            \r\n</div>"
 
 /***/ }),
 
@@ -13908,7 +13952,7 @@ module.exports = ".container{\r\n    font-family: 'Franklin Gothic Medium', 'Ari
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <h1>{{h1[i]}}</h1>\r\n    <div class=\"lead\">\r\n            <p>{{p1[i]}} <span>{{price[0].cost}}</span> {{p2[i]}}</p>\r\n            <p> {{p3[i]}} <span>{{price[1].cost}}</span> {{p2[i]}}</p>\r\n            <p> {{p4[i]}} <span>{{price[2].cost}}</span> {{p5[i]}}</p>\r\n            <p> {{p6[i]}}</p>\r\n           </div>\r\n    </div>"
+module.exports = "<div class=\"container\">\r\n    <h1>{{h1[i]}}</h1>\r\n    <div class=\"lead\">\r\n            <p> {{p1[i]}} <span>{{price[0].cost}}</span> {{p2[i]}}</p>\r\n            <p> {{p3[i]}} <span>{{priceNY[0].costny}}</span> {{p2[i]}}</p>\r\n            <p> {{p4[i]}} <span>{{priceW[0].costw}}</span> {{p5[i]}}</p>\r\n            <p> {{p6[i]}}</p>\r\n           </div>\r\n    </div>"
 
 /***/ }),
 
@@ -13941,7 +13985,6 @@ var PriceComponent = /** @class */ (function () {
     function PriceComponent(appService, calendarService) {
         this.appService = appService;
         this.calendarService = calendarService;
-        this.price = [];
         this.h1 = ["Стоимость аренды", "Вартість оренди", "Rent price"];
         this.p1 = ["Стоимость проживания в доме:", "Вартість проживання в будинку:", "The cost of living in the house:"];
         this.p2 = ["гривен в сутки.", "гривень за добу.", "hryvnia per day."];
@@ -13957,6 +14000,8 @@ var PriceComponent = /** @class */ (function () {
     PriceComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.calendarService.getPrice().subscribe(function (price) { _this.price = price, console.log(price); });
+        this.calendarService.getPriceNY().subscribe(function (priceNY) { _this.priceNY = priceNY; });
+        this.calendarService.getPriceW().subscribe(function (priceW) { _this.priceW = priceW; });
     };
     PriceComponent.prototype.ngDoCheck = function () {
         this.i = this.appService.i;
@@ -13970,6 +14015,62 @@ var PriceComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_1__["AppService"], _calendar_calendar_service__WEBPACK_IMPORTED_MODULE_2__["CalendarService"]])
     ], PriceComponent);
     return PriceComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/class/auth.guard.ts":
+/*!********************************************!*\
+  !*** ./src/app/shared/class/auth.guard.ts ***!
+  \********************************************/
+/*! exports provided: AuthGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_admin_admin_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/admin/admin.service */ "./src/app/admin/admin.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(auth, router) {
+        this.auth = auth;
+        this.router = router;
+    }
+    AuthGuard.prototype.canActivate = function (router, state) {
+        if (this.auth.isAuthenticated()) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(true);
+        }
+        else {
+            alert('Вы не авторизированны');
+            this.router.navigate(['/admin']);
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(false);
+        }
+    };
+    AuthGuard = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [src_app_admin_admin_service__WEBPACK_IMPORTED_MODULE_3__["AdminService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_0__["Router"]])
+    ], AuthGuard);
+    return AuthGuard;
 }());
 
 
@@ -13994,7 +14095,7 @@ module.exports = ".container{\r\n    font-family: 'Franklin Gothic Medium', 'Ari
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n    <h1>{{yard[i]}}</h1>\r\n    <div  class=\"lead\">\r\n           \r\n  <p><img src=\"assets/imeges/childplas.jpg\" class=\"img\">{{p1[i]}}</p> \r\n     <p>{{p2[i]}}</p>\r\n      <p><img src=\"assets/imeges/mangal.jpg\" class=\"img1\"> {{p3[i]}}</p>\r\n              <p> {{p4[i]}}</p> \r\n           \r\n           <img src=\"assets/imeges/swemingpull.jpg\" class=\"img1\">\r\n           \r\n           \r\n         </div>\r\n    </div>"
+module.exports = "<div class=\"container\">\r\n    <h1>{{yard[i]}}</h1>\r\n    <div  class=\"lead\">\r\n           \r\n  <p><img src=\"assets/childplas.jpg\" class=\"img\">{{p1[i]}}</p> \r\n     <p>{{p2[i]}}</p>\r\n      <p><img src=\"assets/mangal.jpg\" class=\"img1\"> {{p3[i]}}</p>\r\n              <p> {{p4[i]}}</p> \r\n           \r\n           <img src=\"assets/swemingpull.jpg\" class=\"img1\">\r\n           \r\n           \r\n         </div>\r\n    </div>"
 
 /***/ }),
 
@@ -14122,7 +14223,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Projects\AngularS\om\client\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Projects\AngularS\tmp\client\src\main.ts */"./src/main.ts");
 
 
 /***/ })

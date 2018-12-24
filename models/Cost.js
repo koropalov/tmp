@@ -3,8 +3,10 @@ const Schema=mongoose.Schema
 
 const costShema = new Schema({
     
-    cost:String
-
+    cost:{
+        type:String,
+        _id:String
+    }
 
 })
 

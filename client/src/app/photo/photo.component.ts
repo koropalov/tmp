@@ -10,6 +10,10 @@ interface Gallery{
  }
  
 }
+export class Foto{
+  _id:string;
+   imageSrc:string;
+}
 
 @Component({
   selector: 'app-photo',
@@ -19,12 +23,12 @@ interface Gallery{
 export class PhotoComponent implements OnInit {
    
  
-  gallery:Gallery[]=[];
+  gallery:Foto[]=[];
  i:number;
   constructor(public appService: AppService, public calendarService:CalendarService) { }
     ngOnInit() {
      
-      this.calendarService.getGallery().subscribe((gallery:Gallery[])=>{this.gallery=gallery,console.log(gallery)})
+      this.calendarService.getGallery().subscribe((gallery:Foto[])=>{this.gallery=gallery,console.log(gallery)})
     }
     ngDoCheck(){
        this.i=this.appService.i;
