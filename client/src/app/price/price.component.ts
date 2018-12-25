@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService} from '../app.service';
 import {CalendarService} from '../calendar/calendar.service';
+import {Price} from '../datachange/datachange.component'
 
-interface Price{
-  cost:{
-    type:string,
-    _id:string
-  }
+// interface Price{
+//   cost:{
+//     type:string,
+//     _id:string
+//   }
 
-}
+// }
 
 
 

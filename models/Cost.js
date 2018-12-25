@@ -2,11 +2,10 @@ const mongoose=require('mongoose')
 const Schema=mongoose.Schema
 
 const costShema = new Schema({
+      cost:{ _id:String,
+        type:String}
+        
     
-    cost:{
-        type:String,
-        _id:String
-    }
 
 })
 

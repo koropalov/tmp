@@ -20,7 +20,8 @@ module.exports.cheng=function(req,res){
 module.exports.create = async function(req,res){
     try{
    const cost=await new Cost({
-       cost:req.body.cost   
+       cost:req.body.cost ,
+       _id:req.body._id  
    }).save()
    res.status(201).json(cost)
     }catch(e){

@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { Foto} from '../datachange/datachange.component'
+import { Foto, Price} from '../datachange/datachange.component'
 
 interface BookedDates{
 
@@ -13,13 +13,13 @@ interface BookedDates{
    year:number;
    _id:string;
  }
- interface Price{
-   cost:{
-      type:string,
-      _id:string
-   }
+//  interface Price{
+//    cost:{
+//       type:string,
+//       _id:string
+//    }
   
- }
+//  }
 
 
 @Injectable()
@@ -65,7 +65,11 @@ addDate(nDate:string):Observable<BookedDates[]>{
           return this.http1.post<BookedDates[]>('api/date',data)
 }
 createPrice(nPrice:string):Observable<Price>{
- return this.http1.post<Price>('api/cost',nPrice)
+   let data={
+         cost:nPrice,
+         _id:nPrice
+   }
+ return this.http1.post<Price>('api/cost',data)
 }
 
 createPriceNY(nPriceNY:string):Observable<Price>{

@@ -14,16 +14,14 @@
   <button type="button" class="btn btn-success" (click)="deleteDate()">Удалить</button>
 </form>
 
- <!--<form id="chengPrice">
+ <form id="cp">
   <div class="form-group">
     <label>Стоимость аренды</label>
-    <input type="text" class="form-control"   [(ngModel)="priceUgely">
+     <input type="text" class="form-control" name="priceU" [(ngModel)]="priceUgely" > 
   </div>
-  <button type="button" class="btn btn-success" (click)="chengePrice()"
-   [disabled]="!editP">Изменить </button>
-  <button type="button" class="btn btn-danger" (click)="editPrice()"
-  [disabled]="editP">Редактировать</button> 
-</form> -->
+  <button type="button" class="btn btn-success" (click)="chengePrice()" [disabled]="!editP">Изменить </button>
+  <button type="button" class="btn btn-danger" (click)="editPrice()" [disabled]="editP">Редактировать</button> 
+</form> 
 
 <form id="chengPriceNY">
   <div class="form-group">
