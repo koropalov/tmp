@@ -2,8 +2,9 @@ const mongoose=require('mongoose')
 const Schema=mongoose.Schema
 
 const costnyShema = new Schema({
-    
-    cost:String
+
+    _id:String,
+    costny :String
     
     
     

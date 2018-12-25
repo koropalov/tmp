@@ -9,9 +9,12 @@ module.exports.getAll=async function(req,res){
     errorHandler(res,e)
     }
 }
-module.exports.cheng=function(req,res){
+module.exports.remove= async function(req,res){
     try{
-  
+  await Cost.remove()
+        res.status(200).json({
+            message:'Цена удалена'
+        })
   
     }catch(e){
     errorHandler(res,e)

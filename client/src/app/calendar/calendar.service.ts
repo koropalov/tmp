@@ -72,14 +72,33 @@ createPrice(nPrice:string):Observable<Price>{
  return this.http1.post<Price>('api/cost',data)
 }
 
+
+deletePrice(price:Price):Observable<null>{
+    return this.http1.delete<null>(`api/cost/${price}`)
+}
+
 createPriceNY(nPriceNY:string):Observable<Price>{
- 
-   return this.http1.post<Price>('api/costny',nPriceNY)
+    let data={
+      costny:nPriceNY,
+      _id:nPriceNY
+    }
+   return this.http1.post<Price>('api/costny',data)
   }
 
+  deletePriceNY(priceNY:Price):Observable<null>{
+    return this.http1.delete<null>(`api/costny/${priceNY}`)
+  }
   createPriceW(nPriceW:string):Observable<Price>{
+    let data={
+      costw:nPriceW,
+      _id:nPriceW
+    }
  
-   return this.http1.post<Price>('api/costw',nPriceW)
+   return this.http1.post<Price>('api/costw',data)
+  }
+
+  deletePriceW(priceW:Price):Observable<null>{
+    return this.http1.delete<null>(`api/costw/${priceW}`)
   }
 
 addFoto(image:File):Observable<Foto>{

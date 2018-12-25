@@ -24,6 +24,9 @@ export class DatachangeComponent implements OnInit {
   //@ViewChild('id') id:ElementRef
   nDate: string;
   dDate:string;
+  price:Price
+  priceNY:Price
+  priceW:Price
   priceUgely:string;
   pNY:string;
   pW:string;
@@ -42,12 +45,18 @@ ngOnInit() {
   }
   editPrice(){
     this.editP=true
+    this.calendarService.getPrice().subscribe((price:Price)=>{this.price=price})
+    this.calendarService.deletePrice(this.price).subscribe((json)=>{console.log(json)})
   }
   editPriceNY(){
     this.editPNY=true
+    this.calendarService.getPriceNY().subscribe((priceNY:Price)=>{this.priceNY=priceNY})
+    this.calendarService.deletePriceNY(this.priceNY).subscribe((json)=>{console.log(json)})
   }
   editPriceWood(){
   this.editPW=true
+    this.calendarService.getPriceW().subscribe((priceW:Price)=>{this.priceW=priceW})
+    this.calendarService.deletePriceW(this.priceW).subscribe((json)=>{console.log(json)})
   }
   addDate(){
     this.calendarService.addDate(this.nDate)
@@ -69,18 +78,21 @@ ngOnInit() {
     .subscribe((json)=>{ 
       console.log(json)
     })
+    this.editP=false
   }
   chengePriceNY(){
     this.calendarService.createPriceNY(this.pNY)
     .subscribe((json)=>{
       console.log(json)
     })
+    this.editPNY=false
   }
   chengePriceWood(){
     this.calendarService.createPriceW(this.pW)
     .subscribe((json)=>{
       console.log(json)
     })
+    this.editPW=false
   }
   loadImg(){
    this.inputRef.nativeElement.click()
