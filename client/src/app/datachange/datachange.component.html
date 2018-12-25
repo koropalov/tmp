@@ -65,8 +65,8 @@
  <button type="button" class="btn btn-primary" (click)="onSubmit()">Сохранить</button>
 </form>
 
-<p *ngIf="gallery.length>0" >Для удаления фото кликните по нему мышкой</p>
+<p *ngIf="gallery.length>0" style="position:relative;top:-290px;">Для удаления фото кликните по нему мышкой</p>
  
-        <div style="float:right" *ngFor="let photo of  gallery" > 
+        <div style="float:right; position: relative;top:-290px;" *ngFor="let photo of  gallery" >
             <img class="del"   [src]= photo.imageSrc (click)="deleteFoto(photo._id)" > 
        </div>
